@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { VendorAuthContext } from "./Context/VendorAuthContext.jsx";
+import Navbar from "../Components/Navbar.jsx";
 
 export default function VendorLogin() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -46,6 +47,7 @@ export default function VendorLogin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+      <Navbar />
       <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">Vendor Login</h2>
 

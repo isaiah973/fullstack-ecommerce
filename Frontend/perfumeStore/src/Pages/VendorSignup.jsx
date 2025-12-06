@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Navbar from "../Components/Navbar";
 
 export default function VendorSignup() {
   const [form, setForm] = useState({
@@ -110,7 +111,8 @@ export default function VendorSignup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
+      <Navbar />
+      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md py-14">
         <h2 className="text-2xl font-bold text-center mb-6">
           Create a Vendor Account
         </h2>

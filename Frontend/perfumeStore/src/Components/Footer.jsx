@@ -6,7 +6,6 @@ export default function Footer() {
   return (
     <footer className="bg-black text-white pt-10 pb-6">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-8">
-        {/* Company Info */}
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl font-bold text-orange-400">Adeola Store</h2>
           <p className="text-gray-300">123 Adeola Street, Lagos, Nigeria</p>
@@ -14,7 +13,6 @@ export default function Footer() {
           <p className="text-gray-300">Phone: +234 801 234 5678</p>
         </div>
 
-        {/* Quick Links */}
         <div className="flex flex-col gap-2">
           <h3 className="font-semibold text-lg">Quick Links</h3>
           <Link to="/" className="text-gray-300 hover:text-orange-400">
@@ -34,7 +32,6 @@ export default function Footer() {
           </Link>
         </div>
 
-        {/* Social Media */}
         <div className="flex flex-col gap-2">
           <h3 className="font-semibold text-lg">Follow Us</h3>
           <div className="flex gap-4 mt-1">

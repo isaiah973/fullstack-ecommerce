@@ -42,9 +42,7 @@ export default function HeroSlider() {
   const currentProduct = products[currentIndex];
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden pt-32 md:pt-36">
-      {/* ↑ Increased pt-32 / md:pt-36 to push slider below fixed navbar */}
-
+    <div className="font-[prata] relative w-full h-[70vh] overflow-hidden pt-32 mt-16">
       <AnimatePresence>
         <motion.div
           key={currentProduct._id}
@@ -52,7 +50,7 @@ export default function HeroSlider() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -100 }}
           transition={{ duration: 1 }}
-          className="absolute top-0 left-0 w-full h-full flex flex-col md:flex-row items-center justify-center bg-gradient-to-r from-yellow-200 via-white to-pink-200"
+          className="absolute top-0 left-0 w-full h-full flex flex-col md:flex-row items-center justify-center bg-gradient-to-r from-yellow-200 via-white to-yellow-200"
         >
           {/* Image */}
           <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center p-4">

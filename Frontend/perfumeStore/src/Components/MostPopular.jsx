@@ -4,11 +4,13 @@ import { fetchAllProducts } from "../Data/Products";
 import { CartContext } from "../Pages/Context/CartContext.jsx";
 import { WishlistContext } from "../Pages/Context/WishlistContext.jsx";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 export default function PopularProducts() {
   const [products, setProducts] = useState([]);
   const { addToCart } = useContext(CartContext);
   const { toggleWishlist, isInWishlist } = useContext(WishlistContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getProducts() {
@@ -28,7 +30,8 @@ export default function PopularProducts() {
         {products.map((product) => (
           <div
             key={product._id}
-            className="w-80 flex flex-col items-center relative"
+            className="w-80 flex flex-col items-center relative cursor-pointer"
+            onClick={() => navigate(`/product/${product._id}`)}
           >
             {/* IMAGE */}
             <div className="w-full h-80 bg-gray-100 flex items-center justify-center relative">
@@ -41,7 +44,7 @@ export default function PopularProducts() {
               {/* Wishlist button */}
               <button
                 onClick={(e) => {
-                  e.stopPropagation();
+                  e.stopPropagation(); // stops navigation
                   const alreadyInWishlist = isInWishlist(product._id);
                   toggleWishlist(product);
                   if (!alreadyInWishlist) {
@@ -81,7 +84,8 @@ export default function PopularProducts() {
             {/* ADD TO CART BUTTON */}
             <div className="mt-6">
               <button
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation(); // stops navigation
                   addToCart(product);
                   alert(`${product.title} added to cart!`);
                 }}
