@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export default function CreateProduct() {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export default function CreateProduct() {
       formData.append("image", image);
 
       const res = await axios.post(
-        "http://localhost:5000/api/products/create-product",
+        `${API_URL}/products/create-product`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

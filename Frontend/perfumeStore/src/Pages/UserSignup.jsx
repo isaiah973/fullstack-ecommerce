@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export default function UserSignup() {
   const [form, setForm] = useState({
@@ -71,11 +72,9 @@ export default function UserSignup() {
     }
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/users/register",
-        form,
-        { withCredentials: true }
-      );
+      const res = await axios.post(`${API_URL}/users/register`, form, {
+        withCredentials: true,
+      });
 
       if (res.status === 201) {
         alert("Signup successful! You can now log in.");

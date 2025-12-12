@@ -70,9 +70,7 @@ export default function Navbar() {
     <nav className="w-full bg-white shadow-sm fixed top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
         <Link to="/">
-          <h1 className="text-2xl font-semibold text-orange-400">
-            Adeola Store
-          </h1>
+          <h1 className="text-2xl font-semibold text-orange-400">StoreMart</h1>
         </Link>
 
         {/* Desktop Links */}

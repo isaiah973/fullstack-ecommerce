@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export const VendorAuthContext = createContext();
 
@@ -13,7 +14,7 @@ export function VendorAuthProvider({ children }) {
   async function vendorLogin(email, password) {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/vendors/login",
+        `${API_URL}/vendors/login`,
         { email, password },
         { withCredentials: true }
       );

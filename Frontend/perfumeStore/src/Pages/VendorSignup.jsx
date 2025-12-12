@@ -13,6 +13,7 @@ export default function VendorSignup() {
     address: "",
     phone: "",
   });
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
   const [passwordStrength, setPasswordStrength] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
@@ -75,7 +76,7 @@ export default function VendorSignup() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/vendors/register",
+        `${API_URL}/vendors/register`,
         {
           name: form.name,
           email: form.email,

@@ -1,16 +1,15 @@
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export async function fetchAllProducts() {
   try {
-    const res = await axios.get(
-      "http://localhost:5000/api/products/get-products",
-      { withCredentials: true }
-    );
+    const res = await axios.get(`${API_URL}/products/get-products`, {
+      withCredentials: true,
+    });
 
-    console.log("API response:", res.data); // DEBUG
+    console.log("API response:", res.data);
 
     if (res.data.success) {
-      // <-- use allProducts instead of products
       return res.data.allProducts;
     }
 
