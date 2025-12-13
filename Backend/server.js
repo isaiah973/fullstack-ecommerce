@@ -2,6 +2,7 @@ const expressApp = require("express");
 require("dotenv").config();
 require("./db");
 require("./models/userModel");
+
 const paystackRoutes = require("./routes/paystackRoutes");
 const User = require("./models/userModel");
 const cors = require("cors");
@@ -17,7 +18,6 @@ const cartRoutes = require("./routes/cartRoutes");
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "http://localhost:5175",
   "https://fullstack-ecommerce-production-bb8b.up.railway.app/",
 ];
 // const wishlistRoutes = require("./routes/wishlistRoutes");
@@ -44,15 +44,14 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (like mobile apps, Postman)
+    origin: (origin, callback) => {
       if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
+        return callback(null, true);
       }
+
+      return callback(null, false);
     },
     credentials: true,
   })
