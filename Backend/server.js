@@ -22,9 +22,16 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
+// app.use(
+//   cors({
+//     origin: ["http://localhost:5173", "http://localhost:5175"],
+//     credentials: true,
+//   })
+// );
+
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5175"],
+    origin: ["http://localhost:5173", "https://*.up.railway.app"],
     credentials: true,
   })
 );
@@ -33,12 +40,14 @@ app.use(cookieParser());
 app.use(expressApp.json());
 app.use("/api/users", userRoutes);
 app.use("/api/vendors", vendorRoutes);
+app.use(expressApp.urlencoded({ extended: true }));
 app.use("/api/products", productRoutes);
 // app.use("/uploads", expressApp.static("uploads"));
 app.use("/uploads", expressApp.static(path.join(process.cwd(), "uploads")));
 app.use("/api/vendor-wishlist", vendorWishlistRoutes);
 app.use("/api/paystack", paystackRoutes);
 app.use("/api/cart", cartRoutes);
+
 // app.use("/api/wishlist", wishlistRoutes);
 
 app.get("/api/me", (req, res) => {
