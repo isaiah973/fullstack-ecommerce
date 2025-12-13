@@ -50,6 +50,7 @@ export default function ProductsList() {
   const displayProducts = showAll
     ? filteredProducts
     : filteredProducts.slice(0, 8);
+  console.log(displayProducts);
 
   const toggleCategory = (cat) => {
     const c = cat.toLowerCase();
@@ -218,7 +219,7 @@ export default function ProductsList() {
                     <div className="flex gap-5 items-center">
                       <div className="w-1/3 h-40 bg-gray-100 rounded-xl flex items-center justify-center">
                         <img
-                          src={`http://localhost:5000${product.image}`}
+                          src={`https://fullstack-ecommerce-production-bb8b.up.railway.app/uploads/${product.image}`}
                           alt={product.title}
                           className="max-h-full object-contain"
                         />
