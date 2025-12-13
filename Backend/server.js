@@ -28,6 +28,8 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
+// delete laterr
+
 // app.use(
 //   cors({
 //     origin: ["http://localhost:5173", "http://localhost:5175"],
