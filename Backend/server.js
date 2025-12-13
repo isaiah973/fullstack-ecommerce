@@ -17,6 +17,7 @@ const cartRoutes = require("./routes/cartRoutes");
 
 const allowedOrigins = [
   "http://localhost:5173",
+  "http://localhost:5175",
   "https://fullstack-ecommerce-production-bb8b.up.railway.app/",
 ];
 // const wishlistRoutes = require("./routes/wishlistRoutes");
