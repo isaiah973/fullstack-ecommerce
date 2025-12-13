@@ -17,6 +17,7 @@ const vendorWishlistRoutes = require("./routes/vendorWishlistRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 
 const allowedOrigins = [
+  "https://fullstack-frontend-zeta-five.vercel.app/",
   "http://localhost:5173",
   "https://fullstack-ecommerce-production-bb8b.up.railway.app/",
 ];
@@ -46,16 +47,11 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      return callback(null, false);
-    },
-    credentials: true,
+    origin: [
+      "https://fullstack-frontend-zeta-five.vercel.app",
+      "http://localhost:5173",
+    ],
+    credentials: true, // if you use cookies
   })
 );
 
