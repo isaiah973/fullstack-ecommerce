@@ -52,7 +52,7 @@ export default function Wishlist() {
 
                   <div className="w-full h-64 bg-gray-50 flex items-center justify-center p-4">
                     <img
-                      src={`http://localhost:5000${product.image}`}
+                      src={product.image}
                       alt={product.title}
                       className="w-full h-full object-contain"
                     />
