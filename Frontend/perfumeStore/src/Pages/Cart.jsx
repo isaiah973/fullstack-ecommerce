@@ -66,11 +66,14 @@ export default function Cart() {
       callback: function (response) {
         alert("Payment successful! Reference: " + response.reference);
 
-        // fetch("http://localhost:5000/api/paystack/verify", {
-        //   method: "POST",
-        //   headers: { "Content-Type": "application/json" },
-        //   body: JSON.stringify({ reference: response.reference }),
-        // })
+        fetch(
+          "https://fullstack-ecommerce-production-244f.up.railway.app/api/paystack/verify",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ reference: response.reference }),
+          }
+        )
           .then((res) => res.json())
           .then((data) => console.log("Verification:", data))
           .catch((err) => console.error(err));
