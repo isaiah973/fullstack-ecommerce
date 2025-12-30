@@ -1,6 +1,6 @@
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
 import { useEffect, useState, useContext, useMemo } from "react";
-import { fetchAllProducts } from "../Data/Products";
+import { fetchAllProducts } from "../Data/products";
 import { useNavigate } from "react-router-dom";
 import HeroSlider from "../Components/HeroSlider.jsx";
 import MostPopular from "../Components/MostPopular.jsx";
@@ -22,14 +22,21 @@ export default function ProductsList() {
 
   const ALL_CATEGORIES = ["perfume", "lotion", "body wash"];
 
+  // Load products from backend
   useEffect(() => {
     async function load() {
-      const data = await fetchAllProducts();
-      setProducts(data || []);
+      try {
+        const data = await fetchAllProducts();
+        console.log("Fetched products:", data); // ✅ Check your image URLs here
+        setProducts(data || []);
+      } catch (err) {
+        console.error("Failed to load products:", err);
+      }
     }
     load();
   }, []);
 
+  // Filter products
   const filteredProducts = useMemo(() => {
     let list = [...products];
 
@@ -50,7 +57,6 @@ export default function ProductsList() {
   const displayProducts = showAll
     ? filteredProducts
     : filteredProducts.slice(0, 8);
-  console.log(displayProducts);
 
   const toggleCategory = (cat) => {
     const c = cat.toLowerCase();
@@ -89,8 +95,7 @@ export default function ProductsList() {
       {/* MAIN PRODUCT SECTION */}
       <motion.div
         id="products-section"
-        className="font-[prata] px-4 lg:px-14 mt-10 py-14
-        bg-gradient-to-b from-white via-gray-50 to-gray-100"
+        className="font-[prata] px-4 lg:px-14 mt-10 py-14 bg-gradient-to-b from-white via-gray-50 to-gray-100"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
@@ -114,8 +119,6 @@ export default function ProductsList() {
           >
             <div className="bg-white p-6 rounded-2xl shadow-md sticky top-28">
               <h3 className="font-semibold text-xl mb-4">Filters</h3>
-
-              {/* Categories */}
               <div className="mb-6">
                 <p className="text-gray-600 text-sm mb-2">Category</p>
                 {ALL_CATEGORIES.map((cat) => (
@@ -134,7 +137,6 @@ export default function ProductsList() {
                 ))}
               </div>
 
-              {/* Price */}
               <div className="mb-6">
                 <p className="text-gray-600 text-sm mb-2">Price Range (₦)</p>
                 <div className="flex items-center gap-2">
@@ -188,22 +190,19 @@ export default function ProductsList() {
                 displayProducts.map((product, index) => (
                   <motion.div
                     key={product._id}
-                    className="relative bg-white rounded-3xl shadow-md p-5 hover:shadow-lg
-                    transition-transform hover:-translate-y-1 cursor-pointer"
+                    className="relative bg-white rounded-3xl shadow-md p-5 hover:shadow-lg transition-transform hover:-translate-y-1 cursor-pointer"
                     onClick={() => goToProduct(product._id)}
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                   >
-                    {/* Wishlist */}
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         const alreadyInWishlist = isInWishlist(product._id);
                         toggleWishlist(product);
-                        if (!alreadyInWishlist) {
+                        if (!alreadyInWishlist)
                           alert(`${product.title} added to wishlist!`);
-                        }
                       }}
                       className="absolute top-4 right-4 bg-white p-2 rounded-full shadow hover:scale-110 transition"
                     >
@@ -219,9 +218,12 @@ export default function ProductsList() {
                     <div className="flex gap-5 items-center">
                       <div className="w-1/3 h-40 bg-gray-100 rounded-xl flex items-center justify-center">
                         <img
-                          src={`https://fullstack-ecommerce-production-bb8b.up.railway.app/uploads/${product.image}`}
+                          src={product.image}
                           alt={product.title}
                           className="max-h-full object-contain"
+                          onError={(e) => {
+                            e.target.src = "/fallback.png";
+                          }} // optional fallback
                         />
                       </div>
 
@@ -230,16 +232,13 @@ export default function ProductsList() {
                         <p className="text-gray-500 text-sm capitalize">
                           {product.category}
                         </p>
-
                         <p className="text-gray-600 text-sm mt-2 line-clamp-2">
                           {product.description}
                         </p>
-
                         <div className="flex justify-between items-center mt-4">
                           <span className="text-2xl font-semibold">
                             ₦{product.price}
                           </span>
-
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
