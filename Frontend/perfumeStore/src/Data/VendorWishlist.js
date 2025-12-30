@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/vendor-wishlist";
+const API_URL = import.meta.env.VITE_API_URL + "/vendor-wishlist";
 
 export async function addToVendorWishlist(vendorId, productId) {
   return axios.post(`${API_URL}/add`, { vendorId, productId });

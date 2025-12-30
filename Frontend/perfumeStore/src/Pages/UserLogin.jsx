@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./Context/AuthContext.jsx";
 import axios from "axios";
 import Navbar from "../Components/Navbar.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function UserLogin() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -30,11 +31,9 @@ export default function UserLogin() {
           return;
         }
       } else {
-        const res = await axios.post(
-          "http://localhost:5000/api/users/login",
-          form,
-          { withCredentials: true }
-        );
+        const res = await axios.post(`${API_URL}/users/login`, form, {
+          withCredentials: true,
+        });
 
         if (res.data && res.data.token) {
           localStorage.setItem("authToken", res.data.token);
