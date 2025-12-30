@@ -36,7 +36,7 @@ export default function PopularProducts() {
             {/* IMAGE */}
             <div className="w-full h-80 bg-gray-100 flex items-center justify-center relative">
               <img
-                src={`http://localhost:5000${product.image}`}
+                src={product.image}
                 alt={product.title}
                 className="max-h-72 object-contain"
               />

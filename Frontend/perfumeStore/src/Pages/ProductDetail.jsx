@@ -19,7 +19,9 @@ export default function ProductDetail() {
   // Fetch product data
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/products/product/${id}`)
+      .get(
+        `https://fullstack-ecommerce-production-244f.up.railway.app/api/products/get-product/${id}`
+      )
       .then((res) => setProduct(res.data.product))
       .catch((e) => console.log(e));
   }, [id]);
@@ -60,7 +62,7 @@ export default function ProductDetail() {
             </button>
 
             <img
-              src={`http://localhost:5000${product.image}`}
+              src={product.image}
               alt={product.title}
               className="w-full max-h-[500px] object-contain drop-shadow-lg relative z-10"
             />
