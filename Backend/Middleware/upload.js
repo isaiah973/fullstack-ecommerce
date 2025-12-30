@@ -1,18 +1,9 @@
 const multer = require("multer");
-const path = require("path");
 
-// Where to save images
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // make sure uploads/ folder exists
-  },
-  filename: (req, file, cb) => {
-    const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, unique + path.extname(file.originalname));
-  },
-});
+// Store files in memory (for Cloudinary)
+const storage = multer.memoryStorage();
 
-// Only allow images
+// Only allow image files
 const fileFilter = (req, file, cb) => {
   const allowed = [
     "image/png",
@@ -23,10 +14,11 @@ const fileFilter = (req, file, cb) => {
     "image/svg+xml",
     "image/avif",
   ];
+
   if (allowed.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error("Only images allowed"), false);
+    cb(new Error("Only image files are allowed"), false);
   }
 };
 

@@ -1,17 +1,37 @@
 const Product = require("../models/productModel");
+const cloudinary = require("../config/cloudinary");
 
-// Controller to create a new product
+// CREATE PRODUCT
 const createProduct = async (req, res) => {
   try {
-    const { title, description, price, category, stock, sku, tags, image } =
-      req.body;
+    const { title, description, price, category, stock, sku, tags } = req.body;
 
     if (!title || !description || !price || !category || !stock) {
-      return res
-        .status(400)
-        .json({ message: "All required fields must be filled" });
+      return res.status(400).json({
+        success: false,
+        message: "All required fields must be filled",
+      });
     }
-    const imagePath = `/uploads/${req.file.filename}`;
+
+    // Check image
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: "Product image is required",
+      });
+    }
+
+    // Upload image to Cloudinary using buffer
+    const uploadResult = await new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream({ folder: "products" }, (error, result) => {
+          if (error) reject(error);
+          resolve(result);
+        })
+        .end(req.file.buffer);
+    });
+
+    // Create product with Cloudinary image URL
     const newProduct = new Product({
       title,
       description,
@@ -20,21 +40,26 @@ const createProduct = async (req, res) => {
       stock,
       sku,
       tags,
-      image: imagePath,
+      image: uploadResult.secure_url,
     });
 
     const savedProduct = await newProduct.save();
+
     res.status(201).json({
       success: true,
       message: "Product created successfully",
-      savedProduct: { ...savedProduct._doc },
+      savedProduct,
     });
   } catch (error) {
-    res.status(500).json({ message: "Error creating product", error });
+    res.status(500).json({
+      success: false,
+      message: "Error creating product",
+      error: error.message,
+    });
   }
 };
 
-// Additional controller to get all products
+// GET ALL PRODUCTS
 const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
@@ -44,30 +69,42 @@ const getAllProducts = async (req, res) => {
       allProducts: products,
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Error fetching products", error });
+    res.status(500).json({
+      success: false,
+      message: "Error fetching products",
+      error: error.message,
+    });
   }
 };
 
+// GET PRODUCT BY ID
 const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
+
     if (!product) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Product not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
     }
+
     res.status(200).json({
       success: true,
       message: "Fetched product by ID",
       product,
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Error fetching product", error });
+    res.status(500).json({
+      success: false,
+      message: "Error fetching product",
+      error: error.message,
+    });
   }
 };
 
-module.exports = { createProduct, getAllProducts, getProductById };
+module.exports = {
+  createProduct,
+  getAllProducts,
+  getProductById,
+};
