@@ -11,44 +11,28 @@ import { WishlistContext } from "../Pages/Context/WishlistContext.jsx";
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const { addToCart } = useContext(CartContext);
   const { wishlist, toggleWishlist, isInWishlist } =
     useContext(WishlistContext);
 
+  // Fetch product data
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const res = await axios.get(
-          `https://fullstack-ecommerce-production-244f.up.railway.app/api/products/get-product/${id}`
-        );
-
-        // Check if product exists
-        if (res.data && res.data.product) {
-          setProduct(res.data.product);
-        } else {
-          setError("Product not found");
-        }
-      } catch (err) {
-        console.log(err);
-        setError("Failed to fetch product");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProduct();
+    axios
+      .get(
+        `https://fullstack-ecommerce-production-244f.up.railway.app/api/products/get-product/${id}`
+      )
+      .then((res) => setProduct(res.data.product))
+      .catch((e) => console.log(e));
   }, [id]);
 
-  if (loading) return <p className="p-10">Loading...</p>;
-  if (error) return <p className="p-10">{error}</p>;
+  if (!product) return <p className="p-10">Loading...</p>;
 
   const wish = isInWishlist(product._id);
 
   return (
     <>
+      {/* Navbar with live wishlist count */}
       <Navbar />
 
       <div className="max-w-7xl mx-auto p-6 lg:p-12 font-[prata] lg:py-36 py-36">
@@ -65,6 +49,7 @@ export default function ProductDetail() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative bg-white border border-[#d4af37]/20 rounded-2xl shadow-lg p-6 flex items-center justify-center"
           >
+            {/* Wishlist Button */}
             <button
               onClick={() => toggleWishlist(product)}
               className="absolute top-4 right-4 bg-white p-3 rounded-full shadow-md border border-black/10 hover:scale-110 transition z-50"
@@ -77,7 +62,7 @@ export default function ProductDetail() {
             </button>
 
             <img
-              src={product.image} // make sure your API returns `image` field
+              src={product.image}
               alt={product.title}
               className="w-full max-h-[500px] object-contain drop-shadow-lg relative z-10"
             />
@@ -112,6 +97,7 @@ export default function ProductDetail() {
               ))}
             </div>
 
+            {/* Add to Cart with Alert */}
             <button
               onClick={() => {
                 addToCart(product);
