@@ -27,7 +27,8 @@ export default function ProductsList() {
     async function load() {
       try {
         const data = await fetchAllProducts();
-        console.log("Fetched products:", data); // ✅ Check your image URLs here
+        console.log("Fetched products:", data);
+        console.log(data.allProducts[0].image); // ✅ Check your image URLs here
         setProducts(data || []);
       } catch (err) {
         console.error("Failed to load products:", err);
