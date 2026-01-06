@@ -91,7 +91,7 @@ export default function Navbar() {
             className="hover:text-orange-400 cursor-pointer"
             onClick={() => navigate("/contact-us")}
           >
-            CONTACT US
+            CONTACT US NOW
           </li>
         </ul>
 
