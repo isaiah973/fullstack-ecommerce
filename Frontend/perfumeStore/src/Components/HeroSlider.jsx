@@ -1,6 +1,6 @@
 // src/Components/HeroSlider.jsx
 import { useEffect, useState } from "react";
-import { fetchAllProducts } from "../Data/Products.js";
+import { fetchAllProducts } from "../Data/Products.js"; //already edited
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
@@ -34,7 +34,7 @@ export default function HeroSlider() {
   if (!products.length) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        Loading products...
+        Loading products......
       </div>
     );
   }

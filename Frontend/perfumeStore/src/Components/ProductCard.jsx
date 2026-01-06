@@ -1,6 +1,6 @@
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
 import { useEffect, useState, useContext, useMemo } from "react";
-import { fetchAllProducts } from "../Data/products";
+import { fetchAllProducts } from "../Data/Products.js";
 import { useNavigate } from "react-router-dom";
 import HeroSlider from "../Components/HeroSlider.jsx";
 import MostPopular from "../Components/MostPopular.jsx";

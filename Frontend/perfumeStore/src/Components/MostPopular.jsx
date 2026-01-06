@@ -1,6 +1,6 @@
 // src/Components/PopularProducts.jsx
 import { useEffect, useState, useContext } from "react";
-import { fetchAllProducts } from "../Data/products";
+import { fetchAllProducts } from "../Data/Products.js";
 import { CartContext } from "../Pages/Context/CartContext.jsx";
 import { WishlistContext } from "../Pages/Context/WishlistContext.jsx";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
