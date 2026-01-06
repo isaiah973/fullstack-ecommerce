@@ -6,12 +6,12 @@ export async function fetchAllProducts() {
   try {
     const res = await axios.get(`${API_URL}/products/get-products`);
 
-    console.log("API response:", res.data); // check response in console
+    // console.log("API response:", res.data); // check response in console
 
     if (res.data.success) {
-      console.log(res.data[0].image);
+      console.log(res.data.allProducts[0].image);
 
-      return res.data.allProducts; // array of products
+      // return res.data.allProducts; // array of products
     }
 
     return [];
