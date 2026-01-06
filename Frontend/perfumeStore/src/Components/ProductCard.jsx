@@ -222,9 +222,9 @@ export default function ProductsList() {
                           src={product.image}
                           alt={product.title}
                           className="max-h-full object-contain"
-                          onError={(e) => {
-                            e.target.src = "/fallback.png";
-                          }} // optional fallback
+                          // onError={(e) => {
+                          //   e.target.src = "/fallback.png";
+                          // }} // optional fallback
                         />
                       </div>
 
