@@ -9,6 +9,8 @@ export async function fetchAllProducts() {
     console.log("API response:", res.data); // check response in console
 
     if (res.data.success) {
+      console.log(res.data.allProducts[0].image);
+
       return res.data.allProducts; // array of products
     }
 
