@@ -1,6 +1,6 @@
 // src/Components/HeroSlider.jsx
 import { useEffect, useState } from "react";
-import { fetchAllProducts } from "../Data/products";
+import { fetchAllProducts } from "../Data/Products.js";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
