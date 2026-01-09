@@ -7,6 +7,7 @@ import { FiHeart } from "react-icons/fi";
 import Navbar from "../Components/Navbar.jsx";
 import { CartContext } from "../Pages/Context/CartContext.jsx";
 import { WishlistContext } from "../Pages/Context/WishlistContext.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -19,9 +20,7 @@ export default function ProductDetail() {
   // Fetch product data
   useEffect(() => {
     axios
-      .get(
-        `https://fullstack-ecommerce-production-244f.up.railway.app/api/products/get-product/${id}`
-      )
+      .get(`${API_URL}/products/product/${id}`)
       .then((res) => setProduct(res.data.product))
       .catch((e) => console.log(e));
   }, [id]);

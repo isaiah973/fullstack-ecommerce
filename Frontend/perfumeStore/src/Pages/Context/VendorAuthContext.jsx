@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_UR;
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const VendorAuthContext = createContext();
 
