@@ -1,25 +1,19 @@
 const multer = require("multer");
 
-// Store files in memory (for Cloudinary)
 const storage = multer.memoryStorage();
 
-// Only allow image files
 const fileFilter = (req, file, cb) => {
-  const allowed = [
-    "image/png",
-    "image/jpg",
-    "image/jpeg",
-    "image/webp",
-    "image/gif",
-    "image/svg+xml",
-    "image/avif",
-  ];
-
-  if (allowed.includes(file.mimetype)) {
+  if (file.mimetype.startsWith("image/")) {
     cb(null, true);
   } else {
     cb(new Error("Only image files are allowed"), false);
   }
 };
 
-module.exports = multer({ storage, fileFilter });
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  fileFilter,
+});
+
+module.exports = upload;
